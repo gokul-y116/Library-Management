@@ -81,6 +81,7 @@
       border: 1px solid #ccc;
       border-radius: 5px;
     }
+    .hidden { display: none; }
   </style>
 </head>
 <body>
@@ -149,6 +150,22 @@
         </tr>
       </tbody>
     </table>
+
+    <!-- Button to open form -->
+    <button id="showBorrowForm">➕ Add Borrowed Book</button>
+
+    <!-- Borrow form (hidden initially) -->
+    <form id="borrowForm" class="hidden">
+      <label>Member Name:</label>
+      <input type="text" id="borrowMember" required>
+      <label>Book Title:</label>
+      <input type="text" id="borrowBook" required>
+      <label>Borrow Date:</label>
+      <input type="date" id="borrowDate" required>
+      <label>Return Date:</label>
+      <input type="date" id="returnDate">
+      <button type="submit">Submit</button>
+    </form>
   </div>
 
   <script>
@@ -173,6 +190,28 @@
       li.textContent = title + " by " + author + " (" + year + ")";
       document.getElementById("bookList").appendChild(li);
       this.reset();
+    });
+
+    // Show borrow form
+    document.getElementById("showBorrowForm").addEventListener("click", function() {
+      document.getElementById("borrowForm").classList.toggle("hidden");
+    });
+
+    // Submit borrow form
+    document.getElementById("borrowForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      let member = document.getElementById("borrowMember").value;
+      let book = document.getElementById("borrowBook").value;
+      let borrowDate = document.getElementById("borrowDate").value;
+      let returnDate = document.getElementById("returnDate").value || "Not Returned";
+
+      let table = document.getElementById("borrowTable");
+      let row = document.createElement("tr");
+      row.innerHTML = `<td>${member}</td><td>${book}</td><td>${borrowDate}</td><td>${returnDate}</td>`;
+      table.appendChild(row);
+
+      this.reset();
+      this.classList.add("hidden");
     });
 
     // Search filter for borrowed books
