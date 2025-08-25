@@ -1,62 +1,14 @@
+<!-- ================= success.html ================= -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Submission Success</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: Arial, sans-serif;
-      text-align: center;
-
-      /* ✅ Library Background Image */
-      background: url('https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') no-repeat center center fixed;
-      background-size: cover;
-      position: relative;
-    }
-
-    /* ✅ Dark overlay */
-    body::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.6);
-      z-index: -1;
-    }
-
-    h1 {
-      font-size: 2.5em;
-      background: rgba(255, 255, 255, 0.85);
-      padding: 20px 30px;
-      border-radius: 12px;
-      color: #2c3e50;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
-    }
-
-    a {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 20px;
-      background: #2c3e50;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      transition: background 0.3s;
-    }
-    a:hover {
-      background: #1a242f;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <div>
-    <h1>✅ SUBMITTED SUCCESSFULLY</h1>
-    <a href="index.html">⬅ Back to Library</a>
-  </div>
+<body class="library-bg" id="successPage">
+  <h1>✅ SUBMITTED SUCCESSFULLY</h1>
+  <a href="back.html"><button>Go Next ➡</button></a>
 </body>
 </html>

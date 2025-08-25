@@ -1,110 +1,15 @@
+<!-- ================= library.html ================= -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Library Management System</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: url('https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') no-repeat center center fixed;
-      background-size: cover;
-      position: relative;
-    }
-    body::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.6);
-      z-index: -1;
-    }
-    header {
-      background: rgba(44, 62, 80, 0.9);
-      color: white;
-      padding: 20px;
-      text-align: center;
-      font-size: 1.8em;
-      letter-spacing: 1px;
-      border-bottom: 4px solid #3498db;
-    }
-    nav {
-      background: rgba(52, 73, 94, 0.9);
-      display: flex;
-      justify-content: center;
-      gap: 25px;
-      padding: 12px;
-    }
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-    nav a:hover {
-      color: #3498db;
-    }
-    .container {
-      max-width: 900px;
-      margin: 25px auto;
-      background: rgba(255, 255, 255, 0.95);
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.4);
-    }
-    h2 { 
-      color: #2c3e50;
-      border-bottom: 2px solid #3498db;
-      padding-bottom: 5px;
-    }
-    form { margin-bottom: 20px; }
-    label { display: block; margin-top: 10px; font-weight: bold; }
-    input, select, button {
-      padding: 10px;
-      width: 100%;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 1em;
-    }
-    button {
-      background: #3498db;
-      color: white;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    button:hover {
-      background: #217dbb;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-    th, td {
-      padding: 12px;
-      border: 1px solid #ddd;
-      text-align: center;
-      font-size: 0.95em;
-    }
-    th {
-      background: #2c3e50;
-      color: white;
-    }
-    #search {
-      margin-top: 10px;
-      padding: 10px;
-      width: 50%;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    .hidden { display: none; }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="library-bg">
   <header>
-    📚 Library Management System
+    <h1>📚 Library Management System</h1>
   </header>
 
   <nav>
@@ -153,22 +58,8 @@
           <th>Return Date</th>
         </tr>
       </thead>
-      <tbody id="borrowTable">
-        <tr>
-          <td>Alice Johnson</td>
-          <td>The Alchemist</td>
-          <td>2023-04-01</td>
-          <td>2023-04-15</td>
-        </tr>
-        <tr>
-          <td>Bob Smith</td>
-          <td>1984</td>
-          <td>2023-04-05</td>
-          <td>Not Returned</td>
-        </tr>
-      </tbody>
+      <tbody id="borrowTable"></tbody>
     </table>
-
     <button id="showBorrowForm">➕ Add Borrowed Book</button>
 
     <form id="borrowForm" class="hidden">
@@ -184,63 +75,16 @@
     </form>
   </div>
 
-  <!-- Overall Final Submit -->
   <div class="container" style="text-align:center; margin-top:30px;">
-    <form onsubmit="event.preventDefault(); window.location.href='success.html';">
+    <form action="success.html">
       <button type="submit">Final Submit</button>
     </form>
   </div>
 
-  <script>
-    document.getElementById("memberForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      let name = document.getElementById("memberName").value;
-      let email = document.getElementById("memberEmail").value;
-      let li = document.createElement("li");
-      li.textContent = name + " (" + email + ")";
-      document.getElementById("memberList").appendChild(li);
-      this.reset();
-    });
-
-    document.getElementById("bookForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      let title = document.getElementById("bookTitle").value;
-      let author = document.getElementById("bookAuthor").value;
-      let year = document.getElementById("bookYear").value;
-      let li = document.createElement("li");
-      li.textContent = title + " by " + author + " (" + year + ")";
-      document.getElementById("bookList").appendChild(li);
-      this.reset();
-    });
-
-    document.getElementById("showBorrowForm").addEventListener("click", function() {
-      document.getElementById("borrowForm").classList.toggle("hidden");
-    });
-
-    document.getElementById("borrowForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      let member = document.getElementById("borrowMember").value;
-      let book = document.getElementById("borrowBook").value;
-      let borrowDate = document.getElementById("borrowDate").value;
-      let returnDate = document.getElementById("returnDate").value || "Not Returned";
-
-      let table = document.getElementById("borrowTable");
-      let row = document.createElement("tr");
-      row.innerHTML = `<td>${member}</td><td>${book}</td><td>${borrowDate}</td><td>${returnDate}</td>`;
-      table.appendChild(row);
-
-      this.reset();
-      this.classList.add("hidden");
-    });
-
-    document.getElementById("search").addEventListener("keyup", function() {
-      let filter = this.value.toLowerCase();
-      let rows = document.querySelectorAll("#borrowTable tr");
-      rows.forEach(row => {
-        let text = row.textContent.toLowerCase();
-        row.style.display = text.includes(filter) ? "" : "none";
-      });
-    });
-  </script>
+  <script src="library.js"></script>
 </body>
 </html>
+
+
+
+
